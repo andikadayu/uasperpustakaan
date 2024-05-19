@@ -40,7 +40,7 @@ if (isset($_SESSION["login"]) == true) {
         <div class="card mx-auto my-auto" style="width: 100%; max-width: 500px;">
             <div class="card-body">
                 <h5 class="card-title text-center">Login</h5>
-                <form action="models/loginregister.php" method="post" autocomplete="FALSE" autocapitalize="false">
+                <form action="models/loginregister.php" method="post" autocomplete="off" autocapitalize="false">
                     <input type="hidden" name="type" value="login">
                     <div class="form-group">
                         <label for="nim">NIM</label>

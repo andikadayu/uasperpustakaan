@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2024 at 05:20 PM
+-- Generation Time: May 19, 2024 at 05:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,7 +31,32 @@ CREATE TABLE `buku` (
   `id` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `penulis` varchar(100) NOT NULL,
-  `tanggal_terbit` date NOT NULL
+  `tanggal_terbit` date NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `buku`
+--
+
+INSERT INTO `buku` (`id`, `nama`, `penulis`, `tanggal_terbit`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Harry Potter and the Philosopher Stone', 'J.K. Rowling', '1997-06-26', NULL, NULL, NULL),
+(2, 'The Midnight Librarys', 'Matt Haig', '2020-01-01', '2024-05-19 09:42:17', '2024-05-19 10:35:08', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `peminjaman`
+--
+
+CREATE TABLE `peminjaman` (
+  `id` int(11) NOT NULL,
+  `nim` varchar(9) DEFAULT NULL,
+  `id_buku` int(11) DEFAULT NULL,
+  `tanggal_pinjam` datetime NOT NULL,
+  `tanggal_kemabli` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -65,6 +90,12 @@ ALTER TABLE `buku`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `peminjaman`
+--
+ALTER TABLE `peminjaman`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -79,6 +110,12 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `peminjaman`
+--
+ALTER TABLE `peminjaman`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

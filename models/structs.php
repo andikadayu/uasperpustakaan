@@ -14,6 +14,24 @@ class Siswa
     }
 }
 
+class Books
+{
+    public int $id;
+    public string $nama;
+    public string $penulis;
+    public string $tanggal_terbit;
+    public bool $isDeleted;
+
+    public function __construct($id, $nama, $penulis, $tanggal_terbit, $isDeleted)
+    {
+        $this->id = $id;
+        $this->nama = $nama;
+        $this->penulis = $penulis;
+        $this->tanggal_terbit = $tanggal_terbit;
+        $this->isDeleted = $isDeleted;
+    }
+}
+
 class GlobalResponse
 {
     public int $status;

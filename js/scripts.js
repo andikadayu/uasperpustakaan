@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let urlSegments = currentUrl.split('/');
     let lastSegment = urlSegments[urlSegments.length - 1];
 
-    if (lastSegment == "index.php") {
+    if (lastSegment.includes("index.php")) {
         document.getElementById("nav-home").classList.add("active");
-    } else if (lastSegment == "books.php") {
+    } else if (lastSegment.includes("books.php")) {
+        console.log("masuk sini")
         document.getElementById("nav-book").classList.add("active");
     }
 });
