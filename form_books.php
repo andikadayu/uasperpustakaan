@@ -62,15 +62,15 @@ if (!isset($_SESSION['login']) == true) {
                     <input type="hidden" name="id" value="<?php echo $id; ?>">
                     <div class="form-group mb-3">
                         <label for="nama" class="form-label">Judul</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value='<?php echo  $action != "add" ? $book->nama : null ?>' <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
+                        <input type="text" class="form-control" id="nama" name="nama" value='<?php echo  $action != "create" ? $book->nama : null ?>' <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="penulis" class="form-label">Penulis</label>
-                        <input type="text" class="form-control" id="penulis" name="penulis" value='<?php echo  $action != "add" ? $book->penulis : null ?>' <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
+                        <input type="text" class="form-control" id="penulis" name="penulis" value='<?php echo  $action != "create" ? $book->penulis : null ?>' <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="tanggal_terbit" class="form-label">Tanggal Terbit</label>
-                        <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit" value='<?php echo  $action != "add" ? $book->tanggal_terbit : null ?>' <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
+                        <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit" value='<?php echo  $action != "create" ? $book->tanggal_terbit : null ?>' <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
                     </div>
 
                     <?php if ($msg != "") {
