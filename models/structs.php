@@ -32,6 +32,26 @@ class Books
     }
 }
 
+class Peminjaman
+{
+    public int $id;
+    public string $nim;
+    public int $id_buku;
+    public string $nama_buku;
+    public string $tanggal_pinjam;
+    public string|null $tanggal_kembali;
+
+    public function __construct($id, $nim, $id_buku, $nama_buku, $tanggal_pinjam, $tanggal_kembali)
+    {
+        $this->id = $id;
+        $this->nim = $nim;
+        $this->id_buku = $id_buku;
+        $this->nama_buku = $nama_buku;
+        $this->tanggal_pinjam = $tanggal_pinjam;
+        $this->tanggal_kembali = $tanggal_kembali;
+    }
+}
+
 class GlobalResponse
 {
     public int $status;

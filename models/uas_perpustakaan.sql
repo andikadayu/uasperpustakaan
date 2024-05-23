@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2024 at 05:43 AM
+-- Generation Time: May 22, 2024 at 04:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,8 +56,15 @@ CREATE TABLE `peminjaman` (
   `nim` varchar(9) DEFAULT NULL,
   `id_buku` int(11) DEFAULT NULL,
   `tanggal_pinjam` datetime NOT NULL,
-  `tanggal_kemabli` datetime DEFAULT NULL
+  `tanggal_kembali` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`id`, `nim`, `id_buku`, `tanggal_pinjam`, `tanggal_kembali`) VALUES
+(1, '22201278', 1, '2024-05-22 15:21:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -116,7 +123,7 @@ ALTER TABLE `buku`
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `siswa`
