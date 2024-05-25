@@ -30,7 +30,7 @@ if (!isset($_SESSION['login']) == true) {
                     <th>Nim</th>
                     <th>Buku</th>
                     <th>Tanggal Pinjam</th>
-                    <th>Tanggal Kembali</th>
+                    <th>Tanggal Kembali </th>
                 </tr>
             </thead>
             <tbody>

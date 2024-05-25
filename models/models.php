@@ -112,8 +112,7 @@ class Models
 
     function AddPeminjaman(string $nim, int $id_buku, string $tanggal_pinjam): GlobalResponse
     {
-        $sql = "INSERT INTO $this->peminjamanTable VALUES (null, '$nim', '$id_buku', '$tanggal_pinjam', null)";
-        echo $sql;
+        $sql = "INSERT INTO $this->peminjamanTable VALUES (null, $nim, $id_buku, $tanggal_pinjam, null)";
         $result = mysqli_query($this->koneksi, $sql);
         if ($result) {
             return new GlobalResponse(200, "Add Peminjaman Success", null);
@@ -128,19 +127,18 @@ class Models
         $sql = "SELECT $this->peminjamanTable.*,$this->bukuTable.nama as nama_buku,$this->bukuTable.id as id_buku FROM $this->peminjamanTable JOIN $this->bukuTable ON $this->peminjamanTable.id_buku = $this->bukuTable.id WHERE nim = '$nim'";
         $result = mysqli_query($this->koneksi, $sql);
         while ($row = mysqli_fetch_array($result)) {
-            $all_result[] = new Peminjaman($row['id'], $row['nim'], $row['id_buku'], $row['nama_buku'], $row['tanggal_pinjam'], $row['tanggal_kembali'], $row['deleted_at'] != null ? true : false);
+            $all_result[] = new Peminjaman($row['id'], $row['nim'], $row['id_buku'], $row['nama_buku'], $row['tanggal_pinjam'], $row['tanggal_kembali']);
         }
         return $all_result;
     }
-    
     public function GetPeminjamanById(int $id): Peminjaman | null
     {
         if ($id != 0) {
-            $sql = "SELECT $this->peminjamanTable.*,$this->bukuTable.nama as nama_buku,$this->bukuTable.id as id_buku FROM $this->peminjamanTable JOIN $this->bukuTable ON $this->peminjamanTable.id_buku = $this->bukuTable.id WHERE $this->peminjamanTable.id = $id";
+            $sql = "SELECT $this->peminjamanTable.*,$this->bukuTable.nama as nama_buku,$this->bukuTable.id as id_buku FROM $this->peminjamanTable JOIN $this->bukuTable ON $this->peminjamanTable.id_buku = $this->bukuTable.id WHERE id = $id";
             $result = mysqli_query($this->koneksi, $sql);
             $row = mysqli_fetch_assoc($result);
             if (mysqli_num_rows($result) > 0) {
-                return new Peminjaman($row['id'], $row['nim'], $row['id_buku'], $row['nama_buku'], $row['tanggal_pinjam'], $row['tanggal_kembali'], $row['deleted_at'] != null ? true : false);
+                return new Peminjaman($row['id'], $row['nim'], $row['id_buku'], $row['nama_buku'], $row['tanggal_pinjam'], $row['tanggal_kembali']);
             } else {
                 return null;
             }
@@ -151,8 +149,7 @@ class Models
 
     public function UpdatePeminjaman(int $id, string $tanggal_kembali): GlobalResponse
     {
-        $sql = "UPDATE $this->peminjamanTable SET tanggal_kembali = '$tanggal_kembali' WHERE nim = $id";
-        echo $sql;
+        $sql = "UPDATE $this->peminjamanTable SET tanggal_kembali = '$tanggal_kembali' WHERE id = $id";
         $result = mysqli_query($this->koneksi, $sql);
         if ($result) {
             $global = new GlobalResponse(200, "Update Peminjaman Success", null);

@@ -2,17 +2,17 @@
 
 include 'models.php';
 
-$nim = $_POST['nim'] ?? null;
+$nim = $_SESSION["nim"] ?? null;
 $type = $_POST["type"] ?? null;
 $id_buku = $_POST["id_buku"] ?? null;
 $tanggal_pinjam = $_POST["tanggal_pinjam"] ?? null;
 $tanggal_kembali = $_POST["tanggal_kembali"] ?? null;
 
 if ($nim == null) {
-    header("Location:logout.php");
+    header("Location:../login.php");
 }
 
-if ($type == "create") {
+if ($type == "insert") {
     $status = $myModels->AddPeminjaman($nim, $id_buku, $tanggal_pinjam);
     if ($status->status == 200) {
         header("Location:../index.php");

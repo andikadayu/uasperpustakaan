@@ -28,7 +28,7 @@ if (!isset($_SESSION['login']) == true) {
     $action = isset($_GET['action']) ? $_GET['action'] : 'create';
     $id = isset($_GET['id']) ? $_GET['id'] : 0;
     $nim = $_SESSION['nim'] ?? 0;
-    $msg = "";
+    $msg = " ";
     $title = "Tambah Data Peminjaman";
     $peminjaman = $myModels->GetPeminjamanById($id);
     if (isset($_GET['response'])) {
