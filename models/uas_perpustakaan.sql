@@ -1,137 +1,79 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: May 22, 2024 at 04:38 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+/*
+ Navicat Premium Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+ Source Server         : localhost - database
+ Source Server Type    : MySQL
+ Source Server Version : 100428
+ Source Host           : localhost:3306
+ Source Schema         : uas_perpustakaan
 
+ Target Server Type    : MySQL
+ Target Server Version : 100428
+ File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+ Date: 25/05/2024 07:49:35
+*/
 
---
--- Database: `uas_perpustakaan`
---
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `buku`
---
-
-CREATE TABLE `buku` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `penulis` varchar(100) NOT NULL,
+-- ----------------------------
+-- Table structure for buku
+-- ----------------------------
+DROP TABLE IF EXISTS `buku`;
+CREATE TABLE `buku`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `penulis` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_terbit` date NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `created_at` datetime(0) NULL DEFAULT NULL,
+  `updated_at` datetime(0) NULL DEFAULT NULL,
+  `deleted_at` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
---
--- Dumping data for table `buku`
---
+-- ----------------------------
+-- Records of buku
+-- ----------------------------
+INSERT INTO `buku` VALUES (1, 'Harry Potter and the Philosopher Stone', 'J.K. Rowling', '1997-06-26', NULL, NULL, NULL);
+INSERT INTO `buku` VALUES (2, 'The Midnight Librarys', 'Matt Haig', '2020-01-01', '2024-05-19 09:42:17', '2024-05-19 10:35:08', NULL);
+INSERT INTO `buku` VALUES (3, 'A Game Of Throens', 'George R. R. Martin', '2024-08-09', '2024-05-25 06:18:40', '2024-05-25 06:18:40', NULL);
 
-INSERT INTO `buku` (`id`, `nama`, `penulis`, `tanggal_terbit`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Harry Potter and the Philosopher Stone', 'J.K. Rowling', '1997-06-26', NULL, NULL, NULL),
-(2, 'The Midnight Librarys', 'Matt Haig', '2020-01-01', '2024-05-19 09:42:17', '2024-05-19 10:35:08', NULL);
+-- ----------------------------
+-- Table structure for peminjaman
+-- ----------------------------
+DROP TABLE IF EXISTS `peminjaman`;
+CREATE TABLE `peminjaman`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nim` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `id_buku` int NULL DEFAULT NULL,
+  `tanggal_pinjam` datetime(0) NOT NULL,
+  `tanggal_kembali` datetime(0) NULL DEFAULT NULL,
+  `deleted_at` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of peminjaman
+-- ----------------------------
 
---
--- Table structure for table `peminjaman`
---
+-- ----------------------------
+-- Table structure for siswa
+-- ----------------------------
+DROP TABLE IF EXISTS `siswa`;
+CREATE TABLE `siswa`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nim` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `nim`(`nim`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `peminjaman` (
-  `id` int(11) NOT NULL,
-  `nim` varchar(9) DEFAULT NULL,
-  `id_buku` int(11) DEFAULT NULL,
-  `tanggal_pinjam` datetime NOT NULL,
-  `tanggal_kembali` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- ----------------------------
+-- Records of siswa
+-- ----------------------------
+INSERT INTO `siswa` VALUES (1, '22201278', 'Andika Dayu', '7E51EEA5FA101ED4DADE9AD3A7A072BB');
+INSERT INTO `siswa` VALUES (2, '2201152', 'Wahyu Hendri', '32c9e71e866ecdbc93e497482aa6779f');
 
---
--- Dumping data for table `peminjaman`
---
-
-INSERT INTO `peminjaman` (`id`, `nim`, `id_buku`, `tanggal_pinjam`, `tanggal_kembali`) VALUES
-(1, '22201278', 1, '2024-05-22 15:21:46', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `siswa`
---
-
-CREATE TABLE `siswa` (
-  `id` int(11) NOT NULL,
-  `nim` varchar(9) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `siswa`
---
-
-INSERT INTO `siswa` (`id`, `nim`, `nama`, `password`) VALUES
-(1, '22201278', 'Andika Dayu', '7E51EEA5FA101ED4DADE9AD3A7A072BB');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `buku`
---
-ALTER TABLE `buku`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `peminjaman`
---
-ALTER TABLE `peminjaman`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `siswa`
---
-ALTER TABLE `siswa`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nim` (`nim`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `buku`
---
-ALTER TABLE `buku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `peminjaman`
---
-ALTER TABLE `peminjaman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `siswa`
---
-ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;
