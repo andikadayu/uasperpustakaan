@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION["login"]) == true) {
-    header("location:indexp.php");
+    header("location:index.php");
 }
 
 ?>

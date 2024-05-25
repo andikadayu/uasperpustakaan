@@ -2,6 +2,8 @@
 session_start();
 if (!isset($_SESSION['login']) == true) {
     header("location:login.php");
+} else {
+    header("location:peminjaman.php");
 }
 ?>
 <!DOCTYPE html>

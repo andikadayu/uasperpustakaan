@@ -31,6 +31,7 @@ if (!isset($_SESSION['login']) == true) {
                     <th>Buku</th>
                     <th>Tanggal Pinjam</th>
                     <th>Tanggal Kembali </th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>

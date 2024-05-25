@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let urlSegments = currentUrl.split('/');
     let lastSegment = urlSegments[urlSegments.length - 1];
 
-    if (lastSegment.includes("index.php")) {
+    if (lastSegment.includes("peminjaman.php")) {
         document.getElementById("nav-home").classList.add("active");
     } else if (lastSegment.includes("books.php")) {
         console.log("masuk sini")

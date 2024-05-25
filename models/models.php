@@ -112,7 +112,7 @@ class Models
 
     function AddPeminjaman(string $nim, int $id_buku, string $tanggal_pinjam): GlobalResponse
     {
-        $sql = "INSERT INTO $this->peminjamanTable VALUES (null, $nim, $id_buku, $tanggal_pinjam, null)";
+        $sql = "INSERT INTO $this->peminjamanTable VALUES (null, $nim, $id_buku, '$tanggal_pinjam', null,null)";
         $result = mysqli_query($this->koneksi, $sql);
         if ($result) {
             return new GlobalResponse(200, "Add Peminjaman Success", null);
@@ -124,21 +124,21 @@ class Models
     public function GetAllPeminjaman($nim): array
     {
         $all_result = array();
-        $sql = "SELECT $this->peminjamanTable.*,$this->bukuTable.nama as nama_buku,$this->bukuTable.id as id_buku FROM $this->peminjamanTable JOIN $this->bukuTable ON $this->peminjamanTable.id_buku = $this->bukuTable.id WHERE nim = '$nim'";
+        $sql = "SELECT $this->peminjamanTable.*,$this->bukuTable.nama as nama_buku,$this->bukuTable.id as id_buku FROM $this->peminjamanTable JOIN $this->bukuTable ON $this->peminjamanTable.id_buku = $this->bukuTable.id WHERE nim = '$nim' and $this->peminjamanTable.deleted_at is null";
         $result = mysqli_query($this->koneksi, $sql);
         while ($row = mysqli_fetch_array($result)) {
-            $all_result[] = new Peminjaman($row['id'], $row['nim'], $row['id_buku'], $row['nama_buku'], $row['tanggal_pinjam'], $row['tanggal_kembali']);
+            $all_result[] = new Peminjaman($row['id'], $row['nim'], $row['id_buku'], $row['nama_buku'], $row['tanggal_pinjam'], $row['tanggal_kembali'], $row['deleted_at'] != null ? true : false);
         }
         return $all_result;
     }
     public function GetPeminjamanById(int $id): Peminjaman | null
     {
         if ($id != 0) {
-            $sql = "SELECT $this->peminjamanTable.*,$this->bukuTable.nama as nama_buku,$this->bukuTable.id as id_buku FROM $this->peminjamanTable JOIN $this->bukuTable ON $this->peminjamanTable.id_buku = $this->bukuTable.id WHERE id = $id";
+            $sql = "SELECT $this->peminjamanTable.*,$this->bukuTable.nama as nama_buku,$this->bukuTable.id as id_buku FROM $this->peminjamanTable JOIN $this->bukuTable ON $this->peminjamanTable.id_buku = $this->bukuTable.id WHERE $this->peminjamanTable.id = $id";
             $result = mysqli_query($this->koneksi, $sql);
             $row = mysqli_fetch_assoc($result);
             if (mysqli_num_rows($result) > 0) {
-                return new Peminjaman($row['id'], $row['nim'], $row['id_buku'], $row['nama_buku'], $row['tanggal_pinjam'], $row['tanggal_kembali']);
+                return new Peminjaman($row['id'], $row['nim'], $row['id_buku'], $row['nama_buku'], $row['tanggal_pinjam'], $row['tanggal_kembali'], $row['deleted_at'] != null ? true : false);
             } else {
                 return null;
             }
@@ -161,7 +161,7 @@ class Models
 
     public function DeletePeminjaman($id): GlobalResponse
     {
-        $sql = "DELETE FROM $this->peminjamanTable WHERE $id";
+        $sql = "UPDATE $this->peminjamanTable SET deleted_at=now() WHERE id = $id";
         $result = mysqli_query($this->koneksi, $sql);
         if ($result) {
             $global = new GlobalResponse(200, "Delete Peminjaman Success", null);
