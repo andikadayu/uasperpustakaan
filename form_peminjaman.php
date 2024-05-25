@@ -27,15 +27,16 @@ if (!isset($_SESSION['login']) == true) {
     include 'models/models.php';
     $action = isset($_GET['action']) ? $_GET['action'] : 'create';
     $id = isset($_GET['id']) ? $_GET['id'] : 0;
+    $nim = $_SESSION['nim'] ?? 0;
     $msg = "";
-    $title = "Tambah Buku";
-    $book = $myModels->GetBookById($id);
+    $title = "Tambah Data Peminjaman";
+    $peminjaman = $myModels->GetPeminjamanById($id);
     if (isset($_GET['response'])) {
         $resp = json_decode(base64_decode($_GET["response"]), true);
         $msg = $resp['message'];
     }
 
-    if ($action != 'create' && $book->isDeleted) {
+    if ($action != 'create' && $peminjaman->isDeleted) {
         $msg = "Buku sudah dihapus";
     }
 
@@ -56,36 +57,35 @@ if (!isset($_SESSION['login']) == true) {
     <div class="container">
         <h4 class="text-center mt-2 "><?php echo $title ?></h4>
         <div class="card mx-auto " style="width: 100%; max-width: 600px;">
-            <form action="models/bookprocess.php" method="post" autocomplete="off" autocapitalize="false">
+            <form action="models/peminjamanprocess.php" method="post" autocomplete="off" autocapitalize="false">
                 <div class="card-body">
-                    <input type="hidden" name="action" value="<?php echo $action; ?>">
-                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                    <input type="hidden" name="type" value="<?php echo $action; ?>">
+                    <input type="hidden" name="nim" value="<?php echo $nim; ?>">
                     <div class="form-group mb-3">
-                        <label for="nama" class="form-label">Judul</label>
-                        <input type="text" class="form-control" id="nama" name="nama"
-                            value='<?php echo  $action != "create" ? $book->nama : null ?>'
+                        <label for="id_buku" class="form-label">Id Buku</label>
+                        <input type="text" class="form-control" id="id_buku" name="id_buku"
+                            value='<?php echo  $action != "create" ? $peminjaman->id_buku : null ?>'
                             <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="penulis" class="form-label">Penulis</label>
-                        <input type="text" class="form-control" id="penulis" name="penulis"
-                            value='<?php echo  $action != "create" ? $book->penulis : null ?>'
+                        <label for="tanggal_pinjam" class="form-label">Tanggal Pinjam</label>
+                        <input type="datetime" class="form-control" id="tanggal_pinjam" name="tanggal_pinjam" value='<?php 
+                            echo  $action != "create" ? $peminjaman->tanggal_pinjam : null ?>'
                             <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="tanggal_terbit" class="form-label">Tanggal Terbit</label>
-                        <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit"
-                            value='<?php echo  $action != "create" ? $book->tanggal_terbit : null ?>'
+                        <label for="tanggal_kembali" class="form-label">Tanggal Kembali</label>
+                        <input type="datetime" class="form-control" id="tanggal_kembali" name="tanggal_kembali"
+                            value='<?php echo  $action != "create" ? $peminjaman->tanggal_kembali : null ?>'
                             <?php echo $action == 'delete' ? 'readonly' : '' ?> required>
                     </div>
-
                     <?php if ($msg != "") {
                         echo "<small class='text-danger'>$msg</small>";
                     } ?>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
-                        <a href="books.php" class="btn btn-secondary">Batal</a>
+                        <a href="peminjaman.php" class="btn btn-secondary">Batal</a>
                         <?php if ($action != "delete") { ?>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <?php } else { ?>

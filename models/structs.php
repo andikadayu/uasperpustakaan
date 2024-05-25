@@ -40,8 +40,9 @@ class Peminjaman
     public string $nama_buku;
     public string $tanggal_pinjam;
     public string|null $tanggal_kembali;
+    public bool $isDeleted;
 
-    public function __construct($id, $nim, $id_buku, $nama_buku, $tanggal_pinjam, $tanggal_kembali)
+    public function __construct($id, $nim, $id_buku, $nama_buku, $tanggal_pinjam, $tanggal_kembali, $isDeleted)
     {
         $this->id = $id;
         $this->nim = $nim;
@@ -49,6 +50,7 @@ class Peminjaman
         $this->nama_buku = $nama_buku;
         $this->tanggal_pinjam = $tanggal_pinjam;
         $this->tanggal_kembali = $tanggal_kembali;
+        $this->isDeleted = $isDeleted;
     }
 }
 
